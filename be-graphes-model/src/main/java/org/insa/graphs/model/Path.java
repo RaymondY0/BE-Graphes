@@ -1,5 +1,7 @@
 package org.insa.graphs.model;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,6 +33,20 @@ public class Path {
             throws IllegalArgumentException {
         List<Arc> arcs = new ArrayList<Arc>();
         // TODO:
+        if(!this.isValid()){throw IllegalArgumentException();}
+        for(int i=0;i<nodes.size()-1;i++){
+            float minTime = Float.POSITIVE_INFINITY;
+            Arc arc;
+            for(int j=0;j<nodes.get(i).getNumberOfSuccessors();j++){
+                if(assertEquals(nodes.get(i).getSuccessors().get(j).getDestination(),nodes.get(i+1))){
+                    if(nodes.get(i).getSuccessors().get(j).getMinimumTravelTime()<minTime){
+                        arc = nodes.get(i).getSuccessors().get(j);
+                        minTime = arc.getMinimumTravelTime();
+                    }
+                }
+            }
+            arcs.add(arc);
+        }
         return new Path(graph, arcs);
     }
 
@@ -49,6 +65,20 @@ public class Path {
             throws IllegalArgumentException {
         List<Arc> arcs = new ArrayList<Arc>();
         // TODO:
+        if(!this.isValid()){throw IllegalArgumentException();}
+        for(int i=0;i<nodes.size()-1;i++){
+            float minLength = Float.POSITIVE_INFINITY;
+            Arc arc;
+            for(int j=0;j<nodes.get(i).getNumberOfSuccessors();j++){
+                if(assertEquals(nodes.get(i).getSuccessors().get(j).getDestination(),nodes.get(i+1))){
+                    if(nodes.get(i).getSuccessors().get(j).getLength()<minLength){
+                        arc = nodes.get(i).getSuccessors().get(j);
+                        minLength = arc.getLength();
+                    }
+                }
+            }
+            arcs.add(arc);
+        }
         return new Path(graph, arcs);
     }
 
@@ -188,6 +218,7 @@ public class Path {
      */
     public boolean isValid() {
         // TODO:
+        
         return false;
     }
 
@@ -199,7 +230,11 @@ public class Path {
      */
     public float getLength() {
         // TODO:
-        return 0;
+        float length = 0;
+        for(Arc arc: arcs){
+            length+=arc.getLength();
+        }
+        return length;
     }
 
     /**
@@ -212,7 +247,7 @@ public class Path {
      */
     public double getTravelTime(double speed) {
         // TODO:
-        return 0;
+        return this.getLength()*3600.0 / (speed * 1000.0);
     }
 
     /**
@@ -224,7 +259,11 @@ public class Path {
      */
     public double getMinimumTravelTime() {
         // TODO:
-        return 0;
+        double time = 0;
+        for(Arc arc: arcs){
+            time+=arc.getMinimumTravelTime();
+        }
+        return time;
     }
 
 }
