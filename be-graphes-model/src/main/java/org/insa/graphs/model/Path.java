@@ -1,7 +1,5 @@
 package org.insa.graphs.model;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -33,18 +31,18 @@ public class Path {
             throws IllegalArgumentException {
         List<Arc> arcs = new ArrayList<Arc>();
         // TODO:
-        if(!this.isValid()){throw IllegalArgumentException();}
         for(int i=0;i<nodes.size()-1;i++){
             float minTime = Float.POSITIVE_INFINITY;
-            Arc arc;
+            Arc arc =  null;
             for(int j=0;j<nodes.get(i).getNumberOfSuccessors();j++){
-                if(assertEquals(nodes.get(i).getSuccessors().get(j).getDestination(),nodes.get(i+1))){
+                if(nodes.get(i).getSuccessors().get(j).getDestination().equals(nodes.get(i+1))){
                     if(nodes.get(i).getSuccessors().get(j).getMinimumTravelTime()<minTime){
                         arc = nodes.get(i).getSuccessors().get(j);
-                        minTime = arc.getMinimumTravelTime();
+                        minTime = (float)arc.getMinimumTravelTime();
                     }
                 }
             }
+            if(minTime == Float.POSITIVE_INFINITY){throw new IllegalArgumentException();}
             arcs.add(arc);
         }
         return new Path(graph, arcs);
@@ -65,18 +63,18 @@ public class Path {
             throws IllegalArgumentException {
         List<Arc> arcs = new ArrayList<Arc>();
         // TODO:
-        if(!this.isValid()){throw IllegalArgumentException();}
         for(int i=0;i<nodes.size()-1;i++){
             float minLength = Float.POSITIVE_INFINITY;
-            Arc arc;
+            Arc arc = null;
             for(int j=0;j<nodes.get(i).getNumberOfSuccessors();j++){
-                if(assertEquals(nodes.get(i).getSuccessors().get(j).getDestination(),nodes.get(i+1))){
+                if(nodes.get(i).getSuccessors().get(j).getDestination().equals(nodes.get(i+1))){
                     if(nodes.get(i).getSuccessors().get(j).getLength()<minLength){
                         arc = nodes.get(i).getSuccessors().get(j);
                         minLength = arc.getLength();
                     }
                 }
             }
+            if(minLength == Float.POSITIVE_INFINITY){throw new IllegalArgumentException();}
             arcs.add(arc);
         }
         return new Path(graph, arcs);
