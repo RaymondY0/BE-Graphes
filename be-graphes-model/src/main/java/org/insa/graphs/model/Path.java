@@ -31,21 +31,28 @@ public class Path {
             throws IllegalArgumentException {
         List<Arc> arcs = new ArrayList<Arc>();
         // TODO:
-        for(int i=0;i<nodes.size()-1;i++){
-            float minTime = Float.POSITIVE_INFINITY;
-            Arc arc =  null;
-            for(int j=0;j<nodes.get(i).getNumberOfSuccessors();j++){
-                if(nodes.get(i).getSuccessors().get(j).getDestination().equals(nodes.get(i+1))){
-                    if(nodes.get(i).getSuccessors().get(j).getMinimumTravelTime()<minTime){
-                        arc = nodes.get(i).getSuccessors().get(j);
-                        minTime = (float)arc.getMinimumTravelTime();
+        switch(nodes.size()){
+            case 0:
+                return new Path(graph);
+            case 1:
+                return new Path(graph,nodes.get(0));
+            default:
+                for(int i=0;i<nodes.size()-1;i++){
+                    float minTime = Float.POSITIVE_INFINITY;
+                    Arc arc =  null;
+                    for(int j=0;j<nodes.get(i).getNumberOfSuccessors();j++){
+                        if(nodes.get(i).getSuccessors().get(j).getDestination().equals(nodes.get(i+1))){
+                            if(nodes.get(i).getSuccessors().get(j).getMinimumTravelTime()<minTime){
+                                arc = nodes.get(i).getSuccessors().get(j);
+                                minTime = (float)arc.getMinimumTravelTime();
+                            }
+                        }
                     }
+                    if(minTime == Float.POSITIVE_INFINITY){throw new IllegalArgumentException();}
+                    arcs.add(arc);
                 }
-            }
-            if(minTime == Float.POSITIVE_INFINITY){throw new IllegalArgumentException();}
-            arcs.add(arc);
+                return new Path(graph, arcs);
         }
-        return new Path(graph, arcs);
     }
 
     /**
@@ -63,21 +70,28 @@ public class Path {
             throws IllegalArgumentException {
         List<Arc> arcs = new ArrayList<Arc>();
         // TODO:
-        for(int i=0;i<nodes.size()-1;i++){
-            float minLength = Float.POSITIVE_INFINITY;
-            Arc arc = null;
-            for(int j=0;j<nodes.get(i).getNumberOfSuccessors();j++){
-                if(nodes.get(i).getSuccessors().get(j).getDestination().equals(nodes.get(i+1))){
-                    if(nodes.get(i).getSuccessors().get(j).getLength()<minLength){
-                        arc = nodes.get(i).getSuccessors().get(j);
-                        minLength = arc.getLength();
+        switch(nodes.size()){
+            case 0:
+                return new Path(graph);
+            case 1:
+                return new Path(graph,nodes.get(0));
+            default:
+                for(int i=0;i<nodes.size()-1;i++){
+                    float minLength = Float.POSITIVE_INFINITY;
+                    Arc arc = null;
+                    for(int j=0;j<nodes.get(i).getNumberOfSuccessors();j++){
+                        if(nodes.get(i).getSuccessors().get(j).getDestination().equals(nodes.get(i+1))){
+                            if(nodes.get(i).getSuccessors().get(j).getLength()<minLength){
+                                arc = nodes.get(i).getSuccessors().get(j);
+                                minLength = arc.getLength();
+                            }
+                        }
                     }
+                    if(minLength == Float.POSITIVE_INFINITY){throw new IllegalArgumentException();}
+                    arcs.add(arc);
                 }
-            }
-            if(minLength == Float.POSITIVE_INFINITY){throw new IllegalArgumentException();}
-            arcs.add(arc);
+                return new Path(graph, arcs);
         }
-        return new Path(graph, arcs);
     }
 
     /**
