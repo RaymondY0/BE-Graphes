@@ -215,9 +215,15 @@ public class Path {
      * @deprecated Need to be implemented.
      */
     public boolean isValid() {
-        // TODO:
-        
-        return false;
+        if(this.size() < 2){
+            return true;
+        } 
+        for(int i = 0;i <arcs.size()-1;i++){
+            if(!arcs.get(i).getDestination().equals(arcs.get(i+1).getOrigin())){
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
