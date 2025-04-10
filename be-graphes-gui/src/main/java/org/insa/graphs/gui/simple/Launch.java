@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
+import java.nio.file.Files;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -14,6 +15,7 @@ import org.insa.graphs.gui.drawing.components.BasicDrawing;
 import org.insa.graphs.model.Graph;
 import org.insa.graphs.model.Path;
 import org.insa.graphs.model.io.BinaryGraphReader;
+import org.insa.graphs.model.io.BinaryPathReader;
 import org.insa.graphs.model.io.GraphReader;
 import org.insa.graphs.model.io.PathReader;
 
@@ -58,22 +60,24 @@ public class Launch {
                 new BufferedInputStream(new FileInputStream(mapName))))) {
 
             // TODO: read the graph
-            graph = null;
+            graph = reader.read();
         }
 
         // create the drawing
         final Drawing drawing = createDrawing();
 
         // TODO: draw the graph on the drawing
+        drawing.drawGraph(graph);
 
         // TODO: create a path reader
-        try (final PathReader pathReader = null) {
+        try (final PathReader pathReader = new BinaryPathReader(new DataInputStream(new FileInputStream(pathName)))) {
 
             // TODO: read the path
-            path = null;
+            path = pathReader.readPath(graph);
         }
 
         // TODO: draw the path on the drawing
+        drawing.drawPath(path);
     }
 
 }
