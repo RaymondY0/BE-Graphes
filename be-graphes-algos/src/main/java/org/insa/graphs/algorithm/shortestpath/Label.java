@@ -12,6 +12,10 @@ public class Label {
 
     private Arc father = null;
 
+    public Label(Node node){
+        this.currentNode = node;
+    }
+
     public Node getNode(){
         return this.currentNode;
     }
@@ -26,6 +30,18 @@ public class Label {
 
     public Arc getFather(){
         return this.father;
+    }
+
+    public void marked(){
+        this.mark = true;
+    }
+
+    public void setCost(double cout){
+        this.currentCost = cout;
+    }
+
+    public void setFather(Arc pere){
+        this.father = pere;
     }
 
 }
