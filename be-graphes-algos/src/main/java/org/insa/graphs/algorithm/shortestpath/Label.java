@@ -2,7 +2,7 @@ package org.insa.graphs.algorithm.shortestpath;
 import org.insa.graphs.model.Node;
 import org.insa.graphs.model.Arc;
 
-public class Label {
+public class Label implements Comparable<Label>{
     
     private Node currentNode;
 
@@ -42,6 +42,16 @@ public class Label {
 
     public void setFather(Arc pere){
         this.father = pere;
+    }
+
+    public int compareTo(Label label){
+        if(Math.abs(this.getCost() - label.getCost()) < (double)0.000001){
+            return 0;
+        } else if(this.getCost() < label.getCost()){
+            return -1;
+        } else {
+            return 1;
+        }
     }
 
 }
