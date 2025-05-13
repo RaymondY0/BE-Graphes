@@ -121,4 +121,4 @@ public class ArcInspectorFactory {
                 new OnlyPedestrianByTime());
     }
 
-}
+}   

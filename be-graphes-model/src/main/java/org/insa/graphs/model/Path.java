@@ -226,7 +226,7 @@ public class Path {
      * </ul>
      *
      * @return true if the path is valid, false otherwise.
-     * @deprecated Need to be implemented.
+     * 
      */
     public boolean isValid() {
         if(this.size() < 2){

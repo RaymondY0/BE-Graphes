@@ -10,6 +10,12 @@ import java.nio.file.Files;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+import org.insa.graphs.algorithm.ArcInspector;
+import org.insa.graphs.algorithm.ArcInspectorFactory;
+import org.insa.graphs.algorithm.shortestpath.BellmanFordAlgorithm;
+import org.insa.graphs.algorithm.shortestpath.DijkstraAlgorithm;
+import org.insa.graphs.algorithm.shortestpath.ShortestPathData;
+import org.insa.graphs.algorithm.shortestpath.ShortestPathSolution;
 import org.insa.graphs.gui.drawing.Drawing;
 import org.insa.graphs.gui.drawing.components.BasicDrawing;
 import org.insa.graphs.model.Graph;
@@ -27,6 +33,8 @@ public class Launch {
      * @return The created drawing.
      * @throws Exception if something wrong happens when creating the graph.
      */
+
+
     public static Drawing createDrawing() throws Exception {
         BasicDrawing basicDrawing = new BasicDrawing();
         SwingUtilities.invokeAndWait(new Runnable() {
@@ -78,6 +86,29 @@ public class Launch {
 
         // TODO: draw the path on the drawing
         drawing.drawPath(path);
+        // création de data pour la graphe
+        ArcInspector arcI = ArcInspectorFactory.getAllFilters().get(0);
+        //chemin inexistant 
+        ShortestPathData data = new ShortestPathData(graph,graph.get(609),graph.get(1000),arcI);
+        //chemin normal
+        ShortestPathData data1 = new ShortestPathData(graph,path.getOrigin(),path.getDestination(),arcI);
+        //chemin de longueur nulle
+        ShortestPathData data2 = new ShortestPathData(graph,path.getOrigin(),path.getOrigin(),arcI);
+        //chemin long 
+        ShortestPathData data3 = new ShortestPathData(graph,graph.get(839),graph.get(227),arcI);
+
+        DijkstraAlgorithm dijstra = new DijkstraAlgorithm(data);
+
+        ShortestPathSolution solution = dijstra.run();
+
+        Path pathS = solution.getPath();
+        //Si le path n'est pas valide
+        if(!pathS.isValid()){
+            System.out.println("Le path n'est pas valide !");
+        }
+
+        //Bellmanford
+
     }
 
 }

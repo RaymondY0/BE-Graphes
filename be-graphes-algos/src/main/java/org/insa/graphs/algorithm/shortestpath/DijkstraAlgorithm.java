@@ -109,5 +109,6 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         // when the algorithm terminates, return the solution that has been found
         return solution;
     }
+    
 
 }
