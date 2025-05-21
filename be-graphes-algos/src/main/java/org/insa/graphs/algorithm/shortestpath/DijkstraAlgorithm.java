@@ -1,6 +1,5 @@
 package org.insa.graphs.algorithm.shortestpath;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -32,10 +31,12 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         final int nbNodes = graph.size();
 
         Label[] labels = new Label[nbNodes];
-        BinaryHeap<Label> lesCouts = new BinaryHeap<Label>();
+
         for (int i=0;i<nbNodes;i++){
-            Array.set(labels,i,new Label(graph.getNodes().get(i)));
+            labels[i] = new Label(graph.getNodes().get(i));
         }
+
+        BinaryHeap<Label> lesCouts = new BinaryHeap<Label>();
 
         labels[data.getOrigin().getId()].setCost(0);  //set le cout de l'origin à 0
         labels[data.getOrigin().getId()].marked();  //marquage de l'origine
@@ -109,6 +110,5 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         // when the algorithm terminates, return the solution that has been found
         return solution;
     }
-    
 
 }
