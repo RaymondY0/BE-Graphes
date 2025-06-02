@@ -84,7 +84,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
             notifyNodeMarked(lastMarked);
         }
 
-        if (!labels[data.getDestination().getId()].getMark()) {
+        if (labels[data.getDestination().getId()].getFather() == null) {
             solution = new ShortestPathSolution(data, Status.INFEASIBLE);
         } else {
 
